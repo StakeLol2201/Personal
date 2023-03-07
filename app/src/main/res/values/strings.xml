@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Personal</string>
+    
+    //  LOGIN ACTIVITY
+    
+    //  TEXT
+    <string name="loginTextViewWelcome" translatable="true">Bienvenido.</string>
+    <string name="loginEdittextUsername" translatable="true">Correo electrónico</string>
+    <string name="loginEdittextPassword" translatable="true">Contraseña</string>
+
+    <string name="loginTextViewForgorPass" translatable="true">¿Has olvidado tu contraseña?</string>
+    
+    //  BUTTONS
+    <string name="loginButtonLogIn" translatable="true">Ingresar</string>
+    <string name="loginButtonRegister" translatable="true">Registrarse</string>
+    <string name="loginButtonGoogle" translatable="false">Google</string>
+    <string name="loginButtonTwitter" translatable="false">Twitter</string>
+    <string name="loginButtonFacebook" translatable="false">Facebook</string>
+    <string name="loginButtonMicrosoft" translatable="false">Microsoft</string>
+
+    //REGISTER ACTIVITY
+
+
+    
+</resources>
