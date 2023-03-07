@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "365087619259",
+    "project_id": "personalapp-edfd1",
+    "storage_bucket": "personalapp-edfd1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365087619259:android:8688ba78693da6c561919e",
+        "android_client_info": {
+          "package_name": "com.mephisto.personal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365087619259-dstr3gkt04fmii2f8t8aiv8d9sj59qmu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mephisto.personal",
+            "certificate_hash": "99c18cc171cfdf84bbd198256e92c02342593d5d"
+          }
+        },
+        {
+          "client_id": "365087619259-37euv55nndir8014aubkdn2a8jeudgnj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApubUlUC7g2sA9jWEUkuPlrhcaLVegt8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365087619259-37euv55nndir8014aubkdn2a8jeudgnj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
