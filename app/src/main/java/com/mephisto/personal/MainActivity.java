@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,12 +64,15 @@ public class MainActivity extends BaseActivity {
 
         //  BUTTONS
         buttonIngresar = findViewById(R.id.buttonIngresar);
+        buttonRegistrar = findViewById(R.id.buttonRegistrar);
 
         //  EDITTEXT
         editUsername = findViewById(R.id.editUsername);
         editPassword = findViewById(R.id.editPassword);
 
         mAuth = FirebaseAuth.getInstance();
+
+        Intent registerIntent = new Intent(this, RegisterActivity.class);
 
         buttonIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +98,23 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        buttonRegistrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(registerIntent);
+
+            }
+        });
+
+        buttonGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                googleSignIn();
+
+            }
+        });
     }
 
     @Override
@@ -157,19 +180,15 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    private void firebaseAuthWithGoogle(String idToken) {
 
         showProgressDialog();
 
-        Log.d(TAGGoogle, "firebaseAuthWithGoogle:" + acct.getId());
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-
-        mAuth.signInWithCredential(credential)
+        AuthCredential credencial = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credencial)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
 
                         if (task.isSuccessful()) {
 
@@ -179,13 +198,48 @@ public class MainActivity extends BaseActivity {
 
                         } else {
 
-                            Log.w(TAGGoogle,"signInWithCredential:failure", task.getException());
-                            Toast.makeText(MainActivity.this, R.string.loginTextIncorrectPass, Toast.LENGTH_SHORT).show();
+                            Log.w(TAGGoogle, "signInWithCredential:failure", task.getException());
                             updateUI(null);
 
                         }
 
                         hideProgressDialog();
+
+                    }
+                });
+
+    }
+
+    private void googleSignIn() {
+
+        Intent signInGoogle = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInGoogle, RC_SIGN_IN);
+
+    }
+
+    @SuppressLint("StringFormatInvalid")
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        AlertDialog.Builder exitDialog = new AlertDialog.Builder(this);
+        exitDialog.setTitle(getString(R.string.titleCloseDialog));
+        exitDialog.setMessage(getString(R.string.messageCloseDialog))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.positiveButtonCloseDialog), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        finish();
+                        moveTaskToBack(true);
+
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        dialogInterface.cancel();
 
                     }
                 });

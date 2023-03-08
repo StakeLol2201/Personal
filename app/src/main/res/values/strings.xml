@@ -5,6 +5,10 @@
 
     <string name="loading" translatable="true">Cargando...</string>
 
+    <string name="titleCloseDialog" translatable="true">Cerrar aplicación</string>
+    <string name="messageCloseDialog" translatable="true">¿Seguro que desea cerrar la aplicación?</string>
+    <string name="positiveButtonCloseDialog" translatable="true">Cerrar</string>
+
     // LOGIN ACTIVITY
 
     // TEXT
@@ -29,5 +33,18 @@
 
     //REGISTER ACTIVITY
 
+    //  TEXT
+    <string name="registerEdittextUsername" translatable="true">Correo electrónico</string>
+    <string name="registerEdittextPassword" translatable="true">Contraseña</string>
+    <string name="registerEdittextRepeatPassword" translatable="true">Repita su contraseña</string>
+
+    <string name="registerTextConfirmReg" translatable="true">Se ha registrado correctamente.</string>
+    <string name="registerTextDenyReg" translatable="true">No se ha podido registrar.</string>
+
+    <string name="registerTextPassNotEquals" translatable="true">Las contraseñas no coinciden.</string>
+    <string name="registerTextError" translatable="true">Usuario ya existente.</string>
+
+    //  BUTTONS
+    <string name="registerButtonRegister" translatable="true">Registrarse</string>
 
 </resources>
