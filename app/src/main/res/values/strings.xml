@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">Personal</string>
 
-    <string name="default_web_client_id" translatable="false">365087619259-7ovkei9hnagu6olg17nvuam7h2oan930.apps.googleusercontent.com</string>
-
-    <string name="loading" translatable="true">Cargando...</string>
+    <string name="loading" translatable="true">Cargando…</string>
 
     <string name="titleCloseDialog" translatable="true">Cerrar aplicación</string>
     <string name="messageCloseDialog" translatable="true">¿Seguro que desea cerrar la aplicación?</string>
@@ -11,7 +9,6 @@
 
     // LOGIN ACTIVITY
 
-    // TEXT
     <string name="loginTextViewWelcome" translatable="true">Bienvenido.</string>
     <string name="loginEdittextUsername" translatable="true">Correo electrónico</string>
     <string name="loginEdittextPassword" translatable="true">Contraseña</string>
@@ -23,7 +20,6 @@
     <string name="loginEmptyMail" translatable="true">El campo correo electrónico está vacío.</string>
     <string name="loginEmptyPass" translatable="true">El campo contraseña está vacío.</string>
 
-    // BUTTONS
     <string name="loginButtonLogIn" translatable="true">Ingresar</string>
     <string name="loginButtonRegister" translatable="true">Registrarse</string>
     <string name="loginButtonGoogle" translatable="false">Google</string>
@@ -33,7 +29,6 @@
 
     //REGISTER ACTIVITY
 
-    //  TEXT
     <string name="registerEdittextUsername" translatable="true">Correo electrónico</string>
     <string name="registerEdittextPassword" translatable="true">Contraseña</string>
     <string name="registerEdittextRepeatPassword" translatable="true">Repita su contraseña</string>
@@ -44,7 +39,6 @@
     <string name="registerTextPassNotEquals" translatable="true">Las contraseñas no coinciden.</string>
     <string name="registerTextError" translatable="true">Usuario ya existente.</string>
 
-    //  BUTTONS
     <string name="registerButtonRegister" translatable="true">Registrarse</string>
 
 </resources>

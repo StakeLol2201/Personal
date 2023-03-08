@@ -1,7 +1,6 @@
 package com.mephisto.personal;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -17,7 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
 
     EditText registerUsername, registerPassword, registerRepeatPassword;
 
@@ -41,6 +40,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         registerButtonRegister = findViewById(R.id.buttonRegisterRegistrar);
 
+        mAuth = FirebaseAuth.getInstance();
+
         registerButtonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +50,17 @@ public class RegisterActivity extends AppCompatActivity {
                 password = registerPassword.getText().toString();
                 repassword = registerRepeatPassword.getText().toString();
 
-                createAccount(username, password ,repassword);
+                if (password.equals(repassword)) {
+
+                    showProgressDialog();
+
+                    createAccount(username, password);
+
+                } else {
+
+                    Toast.makeText(RegisterActivity.this, getString(R.string.registerTextPassNotEquals), Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });
@@ -62,22 +73,18 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void createAccount(String email, String password, String repassword) {
+    private void createAccount(String email, String password) {
 
         Intent loginIntent = new Intent(this, MainActivity.class);
 
-        if (password.equals(repassword)) {
-
             mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if (task.isSuccessful()) {
 
                                 Log.d(TAGEmail, "createUserWithEmail:success");
-
-                                startActivity(loginIntent);
                                 
                             } else {
                                 
@@ -89,11 +96,9 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     });
 
-        } else {
+            hideProgressDialog();
 
-            Toast.makeText(this, getString(R.string.registerButtonRegister), Toast.LENGTH_SHORT).show();
-
-        }
+            startActivity(loginIntent);
 
     }
 

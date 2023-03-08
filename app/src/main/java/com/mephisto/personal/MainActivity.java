@@ -2,9 +2,7 @@ package com.mephisto.personal;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -62,15 +60,16 @@ public class MainActivity extends BaseActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        mAuth = FirebaseAuth.getInstance();
+
         //  BUTTONS
         buttonIngresar = findViewById(R.id.buttonIngresar);
         buttonRegistrar = findViewById(R.id.buttonRegistrar);
+        buttonGoogle = findViewById(R.id.buttonGoogle);
 
         //  EDITTEXT
         editUsername = findViewById(R.id.editUsername);
         editPassword = findViewById(R.id.editPassword);
-
-        mAuth = FirebaseAuth.getInstance();
 
         Intent registerIntent = new Intent(this, RegisterActivity.class);
 
@@ -115,6 +114,7 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+
     }
 
     @Override
@@ -130,6 +130,8 @@ public class MainActivity extends BaseActivity {
             updateUI(currentUser);
 
         }
+
+        hideProgressDialog();
 
     }
 
@@ -169,6 +171,7 @@ public class MainActivity extends BaseActivity {
             try {
 
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account.getIdToken());
 
             } catch (ApiException e) {
 
@@ -217,10 +220,8 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @SuppressLint("StringFormatInvalid")
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
         AlertDialog.Builder exitDialog = new AlertDialog.Builder(this);
         exitDialog.setTitle(getString(R.string.titleCloseDialog));
@@ -230,7 +231,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        finish();
+                        finishAffinity();
                         moveTaskToBack(true);
 
                     }
@@ -244,9 +245,19 @@ public class MainActivity extends BaseActivity {
                     }
                 });
 
+        AlertDialog alert = exitDialog.create();
+        alert.show();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     private void updateUI(FirebaseUser user) {
+
+        hideProgressDialog();
 
     }
 
