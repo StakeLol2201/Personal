@@ -1,16 +1,25 @@
 <resources>
     <string name="app_name">Personal</string>
-    
-    //  LOGIN ACTIVITY
-    
-    //  TEXT
+
+    <string name="default_web_client_id" translatable="false">365087619259-7ovkei9hnagu6olg17nvuam7h2oan930.apps.googleusercontent.com</string>
+
+    <string name="loading" translatable="true">Cargando...</string>
+
+    // LOGIN ACTIVITY
+
+    // TEXT
     <string name="loginTextViewWelcome" translatable="true">Bienvenido.</string>
     <string name="loginEdittextUsername" translatable="true">Correo electrónico</string>
     <string name="loginEdittextPassword" translatable="true">Contraseña</string>
 
     <string name="loginTextViewForgorPass" translatable="true">¿Has olvidado tu contraseña?</string>
-    
-    //  BUTTONS
+
+    <string name="loginTextIncorrectPass" translatable="true">Contraseña incorrecta.</string>
+
+    <string name="loginEmptyMail" translatable="true">El campo correo electrónico está vacío.</string>
+    <string name="loginEmptyPass" translatable="true">El campo contraseña está vacío.</string>
+
+    // BUTTONS
     <string name="loginButtonLogIn" translatable="true">Ingresar</string>
     <string name="loginButtonRegister" translatable="true">Registrarse</string>
     <string name="loginButtonGoogle" translatable="false">Google</string>
@@ -21,5 +30,4 @@
     //REGISTER ACTIVITY
 
 
-    
 </resources>
