@@ -7,6 +7,10 @@
     <string name="messageCloseDialog" translatable="true">¿Seguro que desea cerrar la aplicación?</string>
     <string name="positiveButtonCloseDialog" translatable="true">Cerrar</string>
 
+    // FACEBOOK
+
+    <string name="facebook_app_id">191036796893210</string>
+
     // LOGIN ACTIVITY
 
     <string name="loginTextViewWelcome" translatable="true">Bienvenido.</string>

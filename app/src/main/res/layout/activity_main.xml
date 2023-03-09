@@ -11,7 +11,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="7" />
+        android:layout_weight="13" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -111,6 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_weight="0.1"
+        android:visibility="gone"
         android:background="?android:attr/listDivider" />
 
     <Space
@@ -123,6 +124,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="7"
+        android:visibility="gone"
         android:layout_weight="1">
 
         <Space
@@ -163,6 +165,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="7"
+        android:visibility="gone"
         android:layout_weight="1">
 
         <Space
