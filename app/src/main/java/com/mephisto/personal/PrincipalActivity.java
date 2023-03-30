@@ -48,59 +48,36 @@ public class PrincipalActivity extends BaseActivity {
         buttonPrincipalDisconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 signOut();
-
             }
         });
-
     }
 
     private ArrayList<String> getPaises() {
-
         Locale[] locales = Locale.getAvailableLocales();
-
         ArrayList<String> paises = new ArrayList<String>();
-
         for (Locale locale : locales) {
-
             pais = locale.getDisplayCountry();
-
             if (pais.trim().length() > 0 && !paises.contains(pais)) {
-
                 paises.add(pais);
-
             }
-
         }
-
         Collections.sort(paises);
-
         return paises;
-
     }
 
     private void signOut() {
-
         showProgressDialog();
-
         FirebaseAuth.getInstance().signOut();
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         updateUI(user);
-
     }
 
     private void updateUI(FirebaseUser user) {
-
         if (user == null) {
-
             Intent launchIntent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(launchIntent);
-
         }
-
     }
 
     @Override
