@@ -45,4 +45,8 @@
 
     <string name="registerButtonRegister" translatable="true">Registrarse</string>
 
+    //PRINCIPAL ACTIVITY
+
+    <string name="principalButtonLogout" translatable="true">Desconectarse</string>
+
 </resources>

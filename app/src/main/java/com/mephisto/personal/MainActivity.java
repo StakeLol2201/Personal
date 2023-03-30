@@ -78,14 +78,20 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
+                showProgressDialog();
+
                 String email = editUsername.getText().toString();
                 String pass = editPassword.getText().toString();
 
                 if (pass.equals("")) {
 
+                    hideProgressDialog();
+
                     Toast.makeText(MainActivity.this, R.string.loginEmptyPass, Toast.LENGTH_SHORT).show();
 
                 } else if (email.equals("")) {
+
+                    hideProgressDialog();
 
                     Toast.makeText(MainActivity.this, R.string.loginEmptyMail, Toast.LENGTH_SHORT).show();
 
@@ -147,12 +153,18 @@ public class MainActivity extends BaseActivity {
 
                             Log.d(TAGEmail, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            hideProgressDialog();
+
                             updateUI(user);
 
                         } else {
 
                             Log.w(TAGEmail,"signInWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, getString(R.string.loginTextIncorrectPass), Toast.LENGTH_SHORT).show();
+
+                            hideProgressDialog();
+
                             updateUI(null);
                         }
 
@@ -257,6 +269,13 @@ public class MainActivity extends BaseActivity {
     }
 
     private void updateUI(FirebaseUser user) {
+
+        if (user != null) {
+
+            Intent launchIntent = new Intent(getApplicationContext(), PrincipalActivity.class);
+            startActivity(launchIntent);
+
+        }
 
         hideProgressDialog();
 
