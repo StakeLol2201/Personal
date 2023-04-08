@@ -29,7 +29,6 @@ public class PrincipalActivity extends BaseActivity {
 
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
-
     Button buttonPrincipalDisconnect;
 
     /*Spinner spinnerPaises;
@@ -40,13 +39,10 @@ public class PrincipalActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-
         buttonPrincipalDisconnect = findViewById(R.id.buttonPrincipalDisconnect);
-
         /*spinnerPaises = findViewById(R.id.spinnerPaises);
         paises = getPaises();
         spinnerPaises.setAdapter(new ArrayAdapter<String>(PrincipalActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, paises));*/
-
         buttonPrincipalDisconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,25 +80,7 @@ public class PrincipalActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder exitDialog = new AlertDialog.Builder(this);
-        exitDialog.setTitle(getString(R.string.titleCloseDialog));
-        exitDialog.setMessage(getString(R.string.messageCloseDialog))
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.positiveButtonCloseDialog), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                        moveTaskToBack(true);
-                    }
-                })
-                .setNegativeButton(getString(R.string.negativeButtonCloseDialog), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = exitDialog.create();
-        alert.show();
+        closeApp();
     }
 
 

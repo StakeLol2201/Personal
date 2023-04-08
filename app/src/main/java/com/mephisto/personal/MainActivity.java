@@ -49,54 +49,35 @@ public class MainActivity extends BaseActivity {
     EditText editUsername, editPassword;
     Button buttonIngresar, buttonRegistrar, buttonGoogle, buttonTwitter, buttonFacebook, buttonMicrosoft;
     TextView textviewRecuperarContraseña;
-
     private static final String TAGEmail = "EmailPassword";
     private static final String TAGGoogle = "GoogleLogin";
     private static final String TAGMessaging = "Messaging";
-
     private static final int RC_SIGN_IN = 9001;
-
     private FirebaseAuth mAuth;
-
     private GoogleSignInClient mGoogleSignInClient;
-
     public ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
         mAuth = FirebaseAuth.getInstance();
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
         //  BUTTONS
         buttonIngresar = findViewById(R.id.buttonIngresar);
         buttonRegistrar = findViewById(R.id.buttonRegistrar);
         buttonGoogle = findViewById(R.id.buttonGoogle);
-
         //  EDITTEXT
         editUsername = findViewById(R.id.editUsername);
         editPassword = findViewById(R.id.editPassword);
-
         textviewRecuperarContraseña  = findViewById(R.id.textForgorPassword);
-
         Intent registerIntent = new Intent(this, RegisterActivity.class);
-
-        /*try {
-            chatGPT("Saluda");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }*/
 
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
@@ -106,112 +87,73 @@ public class MainActivity extends BaseActivity {
                             Log.w(TAGMessaging, "Fetching FCM registration token failed", task.getException());
                             return;
                         }
-
-                        // Get new FCM registration token
                         String token = task.getResult();
-
                         Log.d("Token", token);
-
                     }
                 });
 
         buttonIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 showProgressDialog();
-
                 String email = editUsername.getText().toString();
                 String pass = editPassword.getText().toString();
-
                 if (pass.equals("")) {
-
                     hideProgressDialog();
-
                     Toast.makeText(MainActivity.this, R.string.loginEmptyPass, Toast.LENGTH_SHORT).show();
-
                 } else if (email.equals("")) {
-
                     hideProgressDialog();
-
                     Toast.makeText(MainActivity.this, R.string.loginEmptyMail, Toast.LENGTH_SHORT).show();
-
                 } else {
-
                     signIn(email, pass);
-
                 }
-
             }
         });
 
         buttonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 startActivity(registerIntent);
-
             }
         });
 
         buttonGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 googleSignIn();
-
             }
         });
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
         showProgressDialog();
-
         if (currentUser != null) {
-
             updateUI(currentUser);
-
         }
-
         hideProgressDialog();
-
     }
 
     private void signIn(String email, String password) {
-
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
                         if (task.isSuccessful()) {
-
                             Log.d(TAGEmail, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
                             hideProgressDialog();
-
                             updateUI(user);
-
                         } else {
-
                             Log.w(TAGEmail,"signInWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, getString(R.string.loginTextIncorrectPass), Toast.LENGTH_SHORT).show();
-
                             hideProgressDialog();
-
                             updateUI(null);
                         }
-
                     }
                 });
-
     }
 
     @Override
@@ -219,89 +161,44 @@ public class MainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
-
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
             try {
-
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account.getIdToken());
-
             } catch (ApiException e) {
-
                 Log.w(TAGGoogle, "Google sign in failed", e);
-
             }
-
         }
-
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
-
         showProgressDialog();
-
         AuthCredential credencial = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credencial)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
                         if (task.isSuccessful()) {
-
                             Log.d(TAGGoogle, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-
                         } else {
-
                             Log.w(TAGGoogle, "signInWithCredential:failure", task.getException());
                             updateUI(null);
-
                         }
-
                         hideProgressDialog();
-
                     }
                 });
-
     }
 
     private void googleSignIn() {
-
         Intent signInGoogle = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInGoogle, RC_SIGN_IN);
-
     }
 
     @Override
     public void onBackPressed() {
-
-        AlertDialog.Builder exitDialog = new AlertDialog.Builder(this);
-        exitDialog.setTitle(getString(R.string.titleCloseDialog));
-        exitDialog.setMessage(getString(R.string.messageCloseDialog))
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.positiveButtonCloseDialog), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        finishAffinity();
-                        moveTaskToBack(true);
-
-                    }
-                })
-                .setNegativeButton(getString(R.string.negativeButtonCloseDialog), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        dialogInterface.cancel();
-
-                    }
-                });
-
-        AlertDialog alert = exitDialog.create();
-        alert.show();
-
+        closeApp();
     }
 
     @Override
@@ -309,52 +206,12 @@ public class MainActivity extends BaseActivity {
         super.onStop();
     }
 
-    private final ActivityResultLauncher<String> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted) {
-                    // FCM SDK (and your app) can post notifications.
-                } else {
-                    // TODO: Inform user that that your app will not show notifications.
-                }
-            });
-
     private void updateUI(FirebaseUser user) {
-
         if (user != null) {
-
             Intent launchIntent = new Intent(getApplicationContext(), PrincipalActivity.class);
             startActivity(launchIntent);
-
         }
-
         hideProgressDialog();
-
     }
-
-    /*public static void chatGPT(String text) throws Exception {
-
-        String url = "https://api.openai.com/v1/chat/completions";
-
-        HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
-
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json");
-        con.setRequestProperty("Authorization", "Bearer" + R.string.openai_token);
-
-        JSONObject data = new JSONObject();
-
-        data.put("model", "gpt-3.5-turbo");
-        data.put("prompt", text);
-        data.put("max_tokens", 9001);
-
-        con.setDoOutput(true);
-        con.getOutputStream().write(data.toString().getBytes());
-
-        String output = new BufferedReader(new InputStreamReader(con.getInputStream())).lines()
-                .reduce((s, s2) -> s + s2).get();
-
-        System.out.println(new JSONObject(output).getJSONArray("choices").getJSONObject(0).getString("text"));
-
-    }*/
 
 }
