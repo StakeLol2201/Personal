@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="4" />
 
-
     <Spinner
         android:id="@+id/spinnerPaises"
         android:layout_width="850px"
@@ -27,6 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="4" />
+
+
 
     <Button
         android:id="@+id/buttonPrincipalDisconnect"

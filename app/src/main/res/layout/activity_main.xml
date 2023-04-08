@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/loginTextViewWelcome"
-        android:textSize="65px"
+        android:textSize="30dp"
         android:layout_gravity="center_horizontal|center_vertical"/>
 
     <Space
@@ -28,7 +28,7 @@
 
     <EditText
         android:id="@+id/editUsername"
-        android:layout_width="850px"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_weight="1"
@@ -37,7 +37,7 @@
 
     <EditText
         android:id="@+id/editPassword"
-        android:layout_width="850px"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_weight="1"
@@ -59,7 +59,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2.4" />
+        android:layout_weight="2" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,7 +75,7 @@
 
         <Button
             android:id="@+id/buttonIngresar"
-            android:layout_width="300px"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="2"
@@ -88,7 +88,7 @@
 
         <Button
             android:id="@+id/buttonRegistrar"
-            android:layout_width="300px"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="2"
@@ -134,7 +134,7 @@
 
         <Button
             android:id="@+id/buttonGoogle"
-            android:layout_width="300px"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="2"
@@ -147,7 +147,7 @@
 
         <Button
             android:id="@+id/butonTwitter"
-            android:layout_width="300px"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="2"
@@ -175,7 +175,7 @@
 
         <Button
             android:id="@+id/buttonFacebook"
-            android:layout_width="300px"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="2"
@@ -188,7 +188,7 @@
 
         <Button
             android:id="@+id/butonMicrosoft"
-            android:layout_width="300px"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="2"
