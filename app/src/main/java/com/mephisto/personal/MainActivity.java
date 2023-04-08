@@ -1,5 +1,7 @@
 package com.mephisto.personal;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -8,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,8 +32,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class MainActivity extends BaseActivity {
 
@@ -40,6 +52,7 @@ public class MainActivity extends BaseActivity {
 
     private static final String TAGEmail = "EmailPassword";
     private static final String TAGGoogle = "GoogleLogin";
+    private static final String TAGMessaging = "Messaging";
 
     private static final int RC_SIGN_IN = 9001;
 
@@ -63,6 +76,9 @@ public class MainActivity extends BaseActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         //  BUTTONS
         buttonIngresar = findViewById(R.id.buttonIngresar);
         buttonRegistrar = findViewById(R.id.buttonRegistrar);
@@ -72,7 +88,32 @@ public class MainActivity extends BaseActivity {
         editUsername = findViewById(R.id.editUsername);
         editPassword = findViewById(R.id.editPassword);
 
+        textviewRecuperarContraseña  = findViewById(R.id.textForgorPassword);
+
         Intent registerIntent = new Intent(this, RegisterActivity.class);
+
+        /*try {
+            chatGPT("Saluda");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }*/
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAGMessaging, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        Log.d("Token", token);
+
+                    }
+                });
 
         buttonIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,7 +290,7 @@ public class MainActivity extends BaseActivity {
 
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.negativeButtonCloseDialog), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -268,6 +309,15 @@ public class MainActivity extends BaseActivity {
         super.onStop();
     }
 
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    // FCM SDK (and your app) can post notifications.
+                } else {
+                    // TODO: Inform user that that your app will not show notifications.
+                }
+            });
+
     private void updateUI(FirebaseUser user) {
 
         if (user != null) {
@@ -280,5 +330,31 @@ public class MainActivity extends BaseActivity {
         hideProgressDialog();
 
     }
+
+    /*public static void chatGPT(String text) throws Exception {
+
+        String url = "https://api.openai.com/v1/chat/completions";
+
+        HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/json");
+        con.setRequestProperty("Authorization", "Bearer" + R.string.openai_token);
+
+        JSONObject data = new JSONObject();
+
+        data.put("model", "gpt-3.5-turbo");
+        data.put("prompt", text);
+        data.put("max_tokens", 9001);
+
+        con.setDoOutput(true);
+        con.getOutputStream().write(data.toString().getBytes());
+
+        String output = new BufferedReader(new InputStreamReader(con.getInputStream())).lines()
+                .reduce((s, s2) -> s + s2).get();
+
+        System.out.println(new JSONObject(output).getJSONArray("choices").getJSONObject(0).getString("text"));
+
+    }*/
 
 }

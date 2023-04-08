@@ -11,27 +11,30 @@ import java.util.Locale;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class PrincipalActivity extends BaseActivity {
 
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
 
-    String pais;
     Button buttonPrincipalDisconnect;
-    Spinner spinnerPaises;
+
+    /*Spinner spinnerPaises;
     ArrayList<String> paises;
+    String pais;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +42,10 @@ public class PrincipalActivity extends BaseActivity {
         setContentView(R.layout.activity_principal);
 
         buttonPrincipalDisconnect = findViewById(R.id.buttonPrincipalDisconnect);
-        spinnerPaises = findViewById(R.id.spinnerPaises);
 
+        /*spinnerPaises = findViewById(R.id.spinnerPaises);
         paises = getPaises();
-
-        spinnerPaises.setAdapter(new ArrayAdapter<String>(PrincipalActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, paises));
+        spinnerPaises.setAdapter(new ArrayAdapter<String>(PrincipalActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, paises));*/
 
         buttonPrincipalDisconnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +55,7 @@ public class PrincipalActivity extends BaseActivity {
         });
     }
 
-    private ArrayList<String> getPaises() {
+    /*private ArrayList<String> getPaises() {
         Locale[] locales = Locale.getAvailableLocales();
         ArrayList<String> paises = new ArrayList<String>();
         for (Locale locale : locales) {
@@ -64,7 +66,7 @@ public class PrincipalActivity extends BaseActivity {
         }
         Collections.sort(paises);
         return paises;
-    }
+    }*/
 
     private void signOut() {
         showProgressDialog();
@@ -75,7 +77,7 @@ public class PrincipalActivity extends BaseActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user == null) {
-            Intent launchIntent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent launchIntent = new Intent(this, MainActivity.class);
             startActivity(launchIntent);
         }
     }
@@ -83,18 +85,17 @@ public class PrincipalActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         AlertDialog.Builder exitDialog = new AlertDialog.Builder(this);
-        exitDialog.setTitle("Cerrar aplicación");
-        exitDialog.setIcon(R.mipmap.ic_launcher);
-        exitDialog.setMessage("¿Seguro de cerrar la aplicación?")
+        exitDialog.setTitle(getString(R.string.titleCloseDialog));
+        exitDialog.setMessage(getString(R.string.messageCloseDialog))
                 .setCancelable(false)
-                .setPositiveButton("Cerrar", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.positiveButtonCloseDialog), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                         moveTaskToBack(true);
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.negativeButtonCloseDialog), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -103,5 +104,7 @@ public class PrincipalActivity extends BaseActivity {
         AlertDialog alert = exitDialog.create();
         alert.show();
     }
+
+
 
 }

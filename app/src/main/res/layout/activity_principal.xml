@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_weight="1"
+        android:visibility="gone"
         android:spinnerMode="dialog" />
 
     <Space
