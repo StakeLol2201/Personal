@@ -3,7 +3,6 @@ package com.mephisto.personal;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.widget.ProgressBar;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,19 +32,11 @@ public class BaseActivity extends AppCompatActivity {
         exitDialog.setTitle(getString(R.string.titleCloseDialog));
         exitDialog.setMessage(getString(R.string.messageCloseDialog))
                 .setCancelable(false)
-                .setPositiveButton(getString(R.string.positiveButtonCloseDialog), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finishAffinity();
-                        moveTaskToBack(true);
-                    }
+                .setPositiveButton(getString(R.string.positiveButtonCloseDialog), (dialogInterface, i) -> {
+                    finishAffinity();
+                    moveTaskToBack(true);
                 })
-                .setNegativeButton(getString(R.string.negativeButtonCloseDialog), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
+                .setNegativeButton(getString(R.string.negativeButtonCloseDialog), (dialogInterface, i) -> dialogInterface.cancel());
         AlertDialog alert = exitDialog.create();
         alert.show();
     }
