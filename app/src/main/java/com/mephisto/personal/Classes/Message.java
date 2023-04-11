@@ -1,8 +1,9 @@
-package com.mephisto.personal;
+package com.mephisto.personal.Classes;
 
 public class Message {
 
-    private String content, timestamp;
+    private final String content;
+    private final String timestamp;
 
     public Message(String content, String timestamp) {
         this.content = content;

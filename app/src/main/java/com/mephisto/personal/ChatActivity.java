@@ -7,13 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.mephisto.personal.Classes.BaseActivity;
+import com.mephisto.personal.Classes.Message;
+import com.mephisto.personal.Classes.MessageAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

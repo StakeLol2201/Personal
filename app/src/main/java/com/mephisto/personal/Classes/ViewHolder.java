@@ -1,4 +1,4 @@
-package com.mephisto.personal;
+package com.mephisto.personal.Classes;
 
 import android.widget.TextView;
 

@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.mephisto.personal.Classes.BaseActivity;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -42,27 +43,24 @@ public class RegisterActivity extends BaseActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        registerButtonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        registerButtonRegister.setOnClickListener(view -> {
 
-                username = registerUsername.getText().toString();
-                password = registerPassword.getText().toString();
-                repassword = registerRepeatPassword.getText().toString();
+            username = registerUsername.getText().toString();
+            password = registerPassword.getText().toString();
+            repassword = registerRepeatPassword.getText().toString();
 
-                if (password.equals(repassword)) {
+            if (password.equals(repassword)) {
 
-                    showProgressDialog();
+                showProgressDialog();
 
-                    createAccount(username, password);
+                createAccount(username, password);
 
-                } else {
+            } else {
 
-                    Toast.makeText(RegisterActivity.this, getString(R.string.registerTextPassNotEquals), Toast.LENGTH_SHORT).show();
-
-                }
+                Toast.makeText(RegisterActivity.this, getString(R.string.registerTextPassNotEquals), Toast.LENGTH_SHORT).show();
 
             }
+
         });
 
     }
@@ -78,22 +76,19 @@ public class RegisterActivity extends BaseActivity {
         Intent loginIntent = new Intent(this, MainActivity.class);
 
             mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
+                    .addOnCompleteListener(RegisterActivity.this, task -> {
 
-                            if (task.isSuccessful()) {
+                        if (task.isSuccessful()) {
 
-                                Log.d(TAGEmail, "createUserWithEmail:success");
-                                
-                            } else {
-                                
-                                Log.w(TAGEmail, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(RegisterActivity.this, getText(R.string.registerTextError), Toast.LENGTH_SHORT).show();
-                                
-                            }
-                            
+                            Log.d(TAGEmail, "createUserWithEmail:success");
+
+                        } else {
+
+                            Log.w(TAGEmail, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(RegisterActivity.this, getText(R.string.registerTextError), Toast.LENGTH_SHORT).show();
+
                         }
+
                     });
 
             hideProgressDialog();

@@ -1,4 +1,4 @@
-package com.mephisto.personal;
+package com.mephisto.personal.Classes;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.mephisto.personal.R;
 
 public class BaseActivity extends AppCompatActivity {
 

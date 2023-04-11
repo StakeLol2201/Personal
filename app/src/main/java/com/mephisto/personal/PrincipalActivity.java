@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.mephisto.personal.Classes.BaseActivity;
 
 public class PrincipalActivity extends BaseActivity {
 

@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.mephisto.personal.Classes.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 

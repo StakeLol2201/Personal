@@ -1,4 +1,4 @@
-package com.mephisto.personal;
+package com.mephisto.personal.Classes;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+
+import com.mephisto.personal.R;
 
 import java.util.List;
 
