@@ -1,10 +1,13 @@
 package com.mephisto.personal;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,6 +15,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.mephisto.personal.Classes.BaseActivity;
 
 public class PrincipalActivity extends BaseActivity {
+
+    private Dialog infoDialog;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -30,9 +35,22 @@ public class PrincipalActivity extends BaseActivity {
         int id = item.getItemId();
         if (id == R.id.disconnect) {
             signOut();
+        } else if (id == R.id.help) {
+            showInfo();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showInfo() {
+        infoDialog = new Dialog(this);
+        infoDialog.setContentView(R.layout.dialog_info);
+
+        Button btnClose = infoDialog.findViewById(R.id.btn_close);
+
+        btnClose.setOnClickListener(view -> infoDialog.dismiss());
+
+        infoDialog.show();
     }
 
     private void signOut() {

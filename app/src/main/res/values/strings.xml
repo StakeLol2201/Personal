@@ -10,6 +10,13 @@
     <string name="positiveButtonCloseDialog" translatable="true">Cerrar</string>
     <string name="negativeButtonCloseDialog" translatable="true">No</string>
 
+    <string name="principalButtonLogout" translatable="true">Desconectarse</string>
+
+    <string name="helpText" translatable="true">Ayuda</string>
+
+    <string name="helpTextDialog">Aquí va la información que deseas mostrar en el diálogo.</string>
+    <string name="closeHelpDialog" translatable="true">Cerrar</string>
+
     // FACEBOOK
 
     <string name="facebook_app_id">191036796893210</string>
@@ -49,7 +56,5 @@
     <string name="registerButtonRegister" translatable="true">Registrarse</string>
 
     //PRINCIPAL ACTIVITY
-
-    <string name="principalButtonLogout" translatable="true">Desconectarse</string>
 
 </resources>
