@@ -3,45 +3,36 @@ package com.mephisto.personal;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
 
-//import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class PrincipalActivity extends BaseActivity {
 
-    //private FirebaseAuth mAuth;
-    //private GoogleSignInClient mGoogleSignInClient;
-    Button buttonPrincipalDisconnect;
-
-    /*Spinner spinnerPaises;
-    ArrayList<String> paises;
-    String pais;*/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        buttonPrincipalDisconnect = findViewById(R.id.buttonPrincipalDisconnect);
-        /*spinnerPaises = findViewById(R.id.spinnerPaises);
-        paises = getPaises();
-        spinnerPaises.setAdapter(new ArrayAdapter<String>(PrincipalActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, paises));*/
-        buttonPrincipalDisconnect.setOnClickListener(view -> signOut());
     }
 
-    /*private ArrayList<String> getPaises() {
-        Locale[] locales = Locale.getAvailableLocales();
-        ArrayList<String> paises = new ArrayList<String>();
-        for (Locale locale : locales) {
-            pais = locale.getDisplayCountry();
-            if (pais.trim().length() > 0 && !paises.contains(pais)) {
-                paises.add(pais);
-            }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.disconnect) {
+            signOut();
         }
-        Collections.sort(paises);
-        return paises;
-    }*/
+
+        return super.onOptionsItemSelected(item);
+    }
 
     private void signOut() {
         showProgressDialog();
@@ -61,7 +52,5 @@ public class PrincipalActivity extends BaseActivity {
     public void onBackPressed() {
         closeApp();
     }
-
-
 
 }
