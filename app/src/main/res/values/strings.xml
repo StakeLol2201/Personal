@@ -14,7 +14,8 @@
 
     <string name="helpText" translatable="true">Ayuda</string>
 
-    <string name="helpTextDialog">Aquí va la información que deseas mostrar en el diálogo.</string>
+    <string name="helpTextTitle" translatable="true">Este es el título de la pantalla de ayuda.</string>
+    <string name="helpTextDialog" translatable="true">Aquí va la información que deseas mostrar en el diálogo.</string>
     <string name="closeHelpDialog" translatable="true">Cerrar</string>
 
     // FACEBOOK

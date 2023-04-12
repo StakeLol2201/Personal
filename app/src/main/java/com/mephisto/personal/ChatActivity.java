@@ -1,15 +1,15 @@
 package com.mephisto.personal;
 
-import androidx.annotation.NonNull;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -17,9 +17,14 @@ import com.mephisto.personal.Classes.BaseActivity;
 import com.mephisto.personal.Classes.Message;
 import com.mephisto.personal.Classes.MessageAdapter;
 
-import java.text.SimpleDateFormat;
+import com.theokanning.openai.OpenAiService;
+import com.theokanning.openai.completion.chat.ChatCompletionChoice;
+import com.theokanning.openai.completion.chat.ChatCompletionRequest;
+import com.theokanning.openai.completion.chat.ChatMessage;
+import com.theokanning.openai.completion.chat.ChatMessageRole;
+
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class ChatActivity extends BaseActivity {
@@ -27,6 +32,10 @@ public class ChatActivity extends BaseActivity {
     private EditText messageEditText;
     private List<Message> messages;
     private MessageAdapter messageAdapter;
+    private List<ChatCompletionChoice> choices;
+
+    final OpenAiService service = new OpenAiService("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");
+    String chatGPTMessage = "";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,11 +59,45 @@ public class ChatActivity extends BaseActivity {
         sendButton.setOnClickListener(view -> {
 
             String content = messageEditText.getText().toString();
-            @SuppressLint("SimpleDateFormat") String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-            Message message = new Message(content, timestamp);
-            messages.add(message);
+
+            String timestamp = "User";
+            Message[] message = {new Message(content, timestamp)};
+            messages.add(message[0]);
             messageAdapter.notifyDataSetChanged();
             messageEditText.setText("");
+
+            final List<ChatMessage> messagesChatGPT = new ArrayList<>();
+            final ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), content);
+
+            messagesChatGPT.add(systemMessage);
+            ChatCompletionRequest chatcompletionRequest = ChatCompletionRequest
+                    .builder()
+                    .model("gpt-3.5-turbo")
+                    .messages(messagesChatGPT)
+                    .n(1)
+                    .maxTokens(75)
+                    .logitBias(new HashMap<>())
+                    .build();
+
+            //PROBAR CREACIÓN DE API PROPIA
+
+            try {
+                choices = service.createChatCompletion(chatcompletionRequest).getChoices();
+            } catch (Exception e) {
+                Log.d("GPTException", e.toString());
+            }
+
+            for (ChatCompletionChoice choice: choices
+            ) {
+                ChatMessage responseChatGPT = choice.getMessage();
+                chatGPTMessage = responseChatGPT.getContent();
+            }
+
+            String userChatGPT = "ChatGPT";
+
+            message = new Message[]{new Message(chatGPTMessage, userChatGPT)};
+            messages.add(message[0]);
+            messageAdapter.notifyDataSetChanged();
 
         });
     }

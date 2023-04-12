@@ -167,7 +167,7 @@ public class MainActivity extends BaseActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Intent launchIntent = new Intent(getApplicationContext(), PrincipalActivity.class);
+            Intent launchIntent = new Intent(getApplicationContext(), ChatActivity.class);
             startActivity(launchIntent);
         }
         hideProgressDialog();
