@@ -23,6 +23,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -39,14 +40,18 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
 
     implementation platform('com.google.firebase:firebase-bom:31.2.3')
-    implementation 'com.google.firebase:firebase-auth:21.2.0'
+    implementation 'com.google.firebase:firebase-auth:21.3.0'
 
     implementation 'com.google.firebase:firebase-messaging:23.1.2'
 
-    implementation 'com.google.firebase:firebase-analytics:21.2.1'
+    implementation 'com.google.firebase:firebase-analytics:21.2.2'
     implementation 'com.google.firebase:firebase-inappmessaging-display:20.3.1'
 
     implementation 'com.facebook.android:facebook-android-sdk:16.0.1'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.10.1'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
 
     implementation 'com.theokanning.openai-gpt3-java:api:0.12.0'
     implementation 'com.theokanning.openai-gpt3-java:client:0.12.0'

@@ -1,14 +1,17 @@
 <resources>
     <string name="app_name">Personal</string>
 
-    <string name="openai_token">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</string>
-
     <string name="loading" translatable="true">Cargando…</string>
+    <string name="getResponse" translatable="true">Recibiendo respuesta.</string>
 
     <string name="titleCloseDialog" translatable="true">Cerrar aplicación</string>
     <string name="messageCloseDialog" translatable="true">¿Seguro que desea cerrar la aplicación?</string>
     <string name="positiveButtonCloseDialog" translatable="true">Cerrar</string>
     <string name="negativeButtonCloseDialog" translatable="true">No</string>
+
+    <string name="titleErrorDialog" translatable="true">Error</string>
+    <string name="messageErrorDialog" translatable="true">El mensaje no puede estar vacío</string>
+    <string name="closeButtonErrorDialog" translatable="true">Aceptar</string>
 
     <string name="principalButtonLogout" translatable="true">Desconectarse</string>
 
@@ -56,6 +59,10 @@
 
     <string name="registerButtonRegister" translatable="true">Registrarse</string>
 
-    //PRINCIPAL ACTIVITY
+    //CHAT ACTIVITY
+
+    <string name="messageRequestEnable" translatable="true">Escribe tu mensaje aquí</string>
+    <string name="messageRequestDisable" translatable="true">Esperando respuesta de ChatGPT</string>
+    <string name="btnEnviar">Enviar</string>
 
 </resources>

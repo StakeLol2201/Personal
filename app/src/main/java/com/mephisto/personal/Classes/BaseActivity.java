@@ -11,7 +11,7 @@ import com.mephisto.personal.R;
 public class BaseActivity extends AppCompatActivity {
 
     @VisibleForTesting
-    public ProgressDialog mProgressDialog;
+    public ProgressDialog mProgressDialog, mProgressRequest;
 
     public void showProgressDialog() {
         if (mProgressDialog == null) {
@@ -28,6 +28,20 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void showReceivingRequest() {
+        if (mProgressRequest == null) {
+            mProgressRequest = new ProgressDialog(this);
+            mProgressRequest.setMessage(getString(R.string.getResponse));
+            mProgressRequest.setIndeterminate(true);
+        }
+    }
+
+    public void hideReceivingRequest() {
+        if (mProgressRequest != null && mProgressRequest.isShowing()) {
+            mProgressRequest.dismiss();
+        }
+    }
+
     public void closeApp() {
         AlertDialog.Builder exitDialog = new AlertDialog.Builder(this);
         exitDialog.setTitle(getString(R.string.titleCloseDialog));
@@ -39,6 +53,15 @@ public class BaseActivity extends AppCompatActivity {
                 })
                 .setNegativeButton(getString(R.string.negativeButtonCloseDialog), (dialogInterface, i) -> dialogInterface.cancel());
         AlertDialog alert = exitDialog.create();
+        alert.show();
+    }
+
+    public void errorMessage() {
+        AlertDialog.Builder errorDialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.titleErrorDialog)
+                .setMessage(R.string.messageErrorDialog)
+                .setPositiveButton(R.string.closeButtonErrorDialog, ((dialogInterface, i) -> dialogInterface.cancel()));
+        AlertDialog alert = errorDialog.create();
         alert.show();
     }
 

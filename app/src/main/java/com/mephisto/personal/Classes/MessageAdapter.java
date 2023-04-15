@@ -2,6 +2,8 @@ package com.mephisto.personal.Classes;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,7 @@ public class MessageAdapter  extends ArrayAdapter<Message> {
         this.context = context;
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint({"InflateParams", "SetTextI18n", "RtlHardcoded"})
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -38,6 +40,17 @@ public class MessageAdapter  extends ArrayAdapter<Message> {
 
         Message message = messages.get(position);
         ViewHolder viewHolder = (ViewHolder) view.getTag();
+
+        if (message.getTimestamp().equals("ChatGPT")) {
+            viewHolder.contentTextView.setTypeface(null, Typeface.BOLD);
+            viewHolder.contentTextView.setGravity(Gravity.RIGHT);
+            viewHolder.timestampTextView.setGravity(Gravity.RIGHT);
+        } else {
+            viewHolder.contentTextView.setTypeface(null, Typeface.NORMAL);
+            viewHolder.contentTextView.setGravity(Gravity.LEFT);
+            viewHolder.timestampTextView.setGravity(Gravity.LEFT);
+        }
+
         viewHolder.contentTextView.setText(message.getContent());
         viewHolder.timestampTextView.setText(message.getTimestamp());
 

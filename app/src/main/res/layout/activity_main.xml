@@ -33,6 +33,7 @@
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_weight="1"
         android:inputType="textEmailAddress"
+        android:visibility="gone"
         android:hint="@string/loginEdittextUsername" />
 
     <EditText
@@ -42,11 +43,13 @@
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_weight="1"
         android:inputType="textPassword"
+        android:visibility="gone"
         android:hint="@string/loginEdittextPassword"/>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_weight="2.5" />
 
     <TextView
@@ -54,11 +57,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/loginTextViewForgorPass"
+        android:visibility="gone"
         android:layout_gravity="center_horizontal"/>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_weight="2" />
 
     <LinearLayout
@@ -66,6 +71,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="7"
+        android:visibility="gone"
         android:layout_weight="1">
 
         <Space
@@ -104,6 +110,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_weight="2" />
 
     <View
@@ -117,14 +124,14 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_weight="2" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="7"
-        android:visibility="gone"
+        android:weightSum="5"
         android:layout_weight="1">
 
         <Space
@@ -137,21 +144,8 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:text="@string/loginButtonGoogle"/>
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/butonTwitter"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_weight="2"
-            android:text="@string/loginButtonTwitter"/>
 
         <Space
             android:layout_width="wrap_content"

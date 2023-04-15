@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,8 +47,6 @@ public class MainActivity extends BaseActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         mAuth = FirebaseAuth.getInstance();
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
         //  BUTTONS
         buttonIngresar = findViewById(R.id.buttonIngresar);
         buttonRegistrar = findViewById(R.id.buttonRegistrar);
@@ -88,6 +85,7 @@ public class MainActivity extends BaseActivity {
         buttonRegistrar.setOnClickListener(view -> startActivity(registerIntent));
 
         buttonGoogle.setOnClickListener(view -> googleSignIn());
+
     }
 
     @Override
