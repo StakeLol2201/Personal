@@ -27,6 +27,7 @@ public class MessageAdapter  extends ArrayAdapter<Message> {
     @SuppressLint({"InflateParams", "SetTextI18n", "RtlHardcoded"})
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = convertView;
 
@@ -43,7 +44,7 @@ public class MessageAdapter  extends ArrayAdapter<Message> {
 
         if (message.getTimestamp().equals("ChatGPT")) {
             viewHolder.contentTextView.setTypeface(null, Typeface.BOLD);
-            viewHolder.contentTextView.setGravity(Gravity.RIGHT);
+            viewHolder.contentTextView.setGravity(Gravity.LEFT);
             viewHolder.timestampTextView.setGravity(Gravity.RIGHT);
         } else {
             viewHolder.contentTextView.setTypeface(null, Typeface.NORMAL);

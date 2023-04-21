@@ -39,6 +39,7 @@ public class ChatActivity extends BaseActivity {
     private List<ChatCompletionChoice> choices;
     public String apiToken;
     String chatGPTMessage = "";
+    ListView messagesListView;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,7 +56,7 @@ public class ChatActivity extends BaseActivity {
 
         messageEditText = findViewById(R.id.message_edit_text);
         sendButton = findViewById(R.id.send_button);
-        ListView messagesListView = findViewById(R.id.messages_list_view);
+        messagesListView = findViewById(R.id.messages_list_view);
 
         messages = new ArrayList<>();
         messageAdapter = new MessageAdapter(this, messages);
@@ -79,32 +80,10 @@ public class ChatActivity extends BaseActivity {
                 messageAdapter.notifyDataSetChanged();
                 messageEditText.setText("");
 
+                showReceivingRequest();
+
                 String chatGPTResponse = String.valueOf(new sendRequest().execute(content));
 
-                /*final List<ChatMessage> messagesChatGPT = new ArrayList<>();
-                final ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), content);
-
-                messagesChatGPT.add(systemMessage);
-                ChatCompletionRequest chatcompletionRequest = ChatCompletionRequest
-                        .builder()
-                        .model("gpt-3.5-turbo")
-                        .messages(messagesChatGPT)
-                        .n(1)
-                        .maxTokens(1000)
-                        .logitBias(new HashMap<>())
-                        .build();
-
-                try {
-                    choices = service.createChatCompletion(chatcompletionRequest).getChoices();
-                } catch (Exception e) {
-                    Log.d("GPTException", e.toString());
-                }
-
-                for (ChatCompletionChoice choice : choices
-                ) {
-                    ChatMessage responseChatGPT = choice.getMessage();
-                    chatGPTMessage = responseChatGPT.getContent();
-                }*/
             }
 
         });
@@ -123,7 +102,7 @@ public class ChatActivity extends BaseActivity {
             messageEditText.setHint(R.string.messageRequestDisable);
             sendButton.setEnabled(false);
 
-            showReceivingRequest();
+            showProgressDialog();
         }
 
         @Override
@@ -169,9 +148,13 @@ public class ChatActivity extends BaseActivity {
 
             String userChatGPT = "ChatGPT";
 
+            hideProgressDialog();
+
             Message[] message = new Message[]{new Message(result, userChatGPT)};
             messages.add(message[0]);
             messageAdapter.notifyDataSetChanged();
+
+            messagesListView.setSelection(messageAdapter.getCount());
 
             messageEditText.setEnabled(true);
             messageEditText.setHint(R.string.messageRequestEnable);
